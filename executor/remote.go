@@ -14,18 +14,18 @@ var ReadFile = ioutil.ReadFile
 
 type SSHExecutor struct {
 	Address      string
+	ConnPort     int
 	User         string
 	IdentityFile string
-	InitOpts     InitOpts
 	ClientConfig *ssh.ClientConfig
 }
 
-func NewSSHExecutor(address string, user string, identityFile string, opts InitOpts) SSHExecutor {
+func NewSSHExecutor(address string, user string, identityFile string, connPort int) SSHExecutor {
 	e := SSHExecutor{
 		Address:      address,
 		User:         user,
 		IdentityFile: identityFile,
-		InitOpts:     opts,
+		ConnPort:     connPort,
 	}
 
 	authMethods := []ssh.AuthMethod{}

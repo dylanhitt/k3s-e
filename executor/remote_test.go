@@ -11,7 +11,7 @@ func Test_NewSSHExecutor(t *testing.T) {
 		return []byte("foo"), nil
 	}
 
-	e := NewSSHExecutor("0.0.0.0", "ubuntu", "", InitOpts{})
+	e := NewSSHExecutor("0.0.0.0", "ubuntu", "", 22)
 
 	assert.Equal(t, "0.0.0.0", e.Address)
 	assert.Equal(t, "ubuntu", e.ClientConfig.User)

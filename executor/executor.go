@@ -6,7 +6,7 @@ import (
 )
 
 type Executor interface {
-	Execute() error
+	Execute(opts InitOpts) error
 	GetJoinToken() string
 }
 
