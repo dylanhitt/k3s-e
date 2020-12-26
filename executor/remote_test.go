@@ -3,7 +3,7 @@ package executor
 import (
 	"testing"
 
-	"github.com/magiconair/properties/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_NewSSHExecutor(t *testing.T) {
@@ -12,7 +12,6 @@ func Test_NewSSHExecutor(t *testing.T) {
 	}
 
 	e := NewSSHExecutor("0.0.0.0", "ubuntu", "", 22)
-
 	assert.Equal(t, "0.0.0.0", e.Address)
 	assert.Equal(t, "ubuntu", e.ClientConfig.User)
 }
