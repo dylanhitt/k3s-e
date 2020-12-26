@@ -44,7 +44,11 @@ func NewSSHExecutor(address string, user string, identityFile string, connPort i
 	return e
 }
 
-func (e SSHExecutor) createSigner() ssh.Signer {
+func (e *SSHExecutor) Install() error {
+	return nil
+}
+
+func (e *SSHExecutor) createSigner() ssh.Signer {
 	buffer, err := ReadFile(e.IdentityFile)
 	if err != nil {
 		log.Fatal(err)
