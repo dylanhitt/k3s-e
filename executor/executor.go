@@ -6,19 +6,21 @@ import (
 )
 
 type Executor interface {
-	Execute() error
+	Execute(opts InitOpts) error
 	GetJoinToken() string
 }
 
 type InitOpts struct {
-	SystemdType string
-	EnvFile     string
-	BinDir      string
-	K3sCMD      string
+	SystemdType     string
+	EnvFile         string
+	BinDir          string
+	K3sCMD          string
+	ServiceFilePath string
 }
 
-var systemdTmpl = `
-[Unit]
+const serviceFileName string = "k3s.service"
+
+var systemdTmpl = `[Unit]
 Description=Lightweight Kubernetes
 Documentation=https://k3s.io
 Wants=network-online.target
@@ -45,7 +47,7 @@ ExecStart={{ .BinDir }}/k3s \\
     {{ .K3sCMD }}
 `
 
-func createInitConfig(sc InitOpts) string {
+func createInitConfig(sc InitOpts) bytes.Buffer {
 	t := template.Must(template.New("systemd").Parse(systemdTmpl))
 
 	var tpl bytes.Buffer
@@ -54,5 +56,5 @@ func createInitConfig(sc InitOpts) string {
 		panic(err)
 	}
 
-	return tpl.String()
+	return tpl
 }
